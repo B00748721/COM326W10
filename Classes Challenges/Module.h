@@ -10,6 +10,7 @@ private:
 	std::string moduleCode_;
 	int moduleCreditPoints_;
 	int moduleMark_;
+
 public:
 	Module();
 	Module(std::string moduleTitle, std::string moduleCode, int moduleCreditPoints, int moduleMark);
