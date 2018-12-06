@@ -39,7 +39,7 @@ Student::Student(std::string name) : Person{ name } {
 Student::Student(std::string name, std::string registration, std::string course, int yearofStudy) : Person{ name }, registrstionID_{ registration }, course_{ course },
 	yearofStudy_{ yearofStudy}
 {
-	std::cout << "The second custom Student class constructor was called to create " << Person::GetName() << std::endl;
+	//std::cout << "The second custom Student class constructor was called to create " << Person::GetName() << std::endl;
 	numberofStudents_++;
 
 	//we could assign the values of the parameters to the data members like this
@@ -48,12 +48,12 @@ Student::Student(std::string name, std::string registration, std::string course,
 
 
 Student::~Student() {
-	if (Person::GetName().size() > 0) {
-		std::cout << "Destructor of the Student class called on " << Person::GetName() << std::endl;
-	}
-	else {
-		std::cout << "Destructor of the Student  class called on empty student" << std::endl;
-	}
+	//if (Person::GetName().size() > 0) {
+	//	std::cout << "Destructor of the Student class called on " << Person::GetName() << std::endl;
+	//}
+	//else {
+	//	std::cout << "Destructor of the Student  class called on empty student" << std::endl;
+	//}
 	numberofStudents_--;
 }
 

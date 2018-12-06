@@ -10,6 +10,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <iomanip>
 #include <vector>
 #include "Student.h"
 #include "Module.h"
@@ -29,7 +30,7 @@ bool WriteStudentDetails(std::vector<Student> &data) {
 	}
 	else {
 		for (int i = 0; i < data.size(); i++) {
-			outFile << data.at(i).GetName() << "\t" << data.at(i).GetRegistrationID() << "\t" << data.at(i).GetYearofStudy() << endl;
+			outFile << quoted(data.at(i).GetName()) << "\t" << quoted(data.at(i).GetRegistrationID()) << "\t" << quoted(data.at(i).GetCourse()) << "\t" << data.at(i).GetYearofStudy() << endl;
 		}
 		outFile.close();
 		return true;
@@ -38,13 +39,16 @@ bool WriteStudentDetails(std::vector<Student> &data) {
 
 std::vector<Student> ReadStudentDetails(std::string dataFile) {
 	ifstream inFile{ dataFile, ios::in };
+	std::string name, regNo, course, temp;
+	int year;
 	vector<Student> data;
 	if (!inFile) {
 		cout << "file not found" << endl;
 	}
 	else {
 		while (!inFile.eof()) {
-			
+			inFile >> quoted(name) >> quoted(regNo) >> quoted(course) >> year;
+			data.push_back(Student(name, regNo, course, year));
 		}
 	}
 
@@ -56,20 +60,20 @@ std::vector<Student> ReadStudentDetails(std::string dataFile) {
 
 int main() {
 	Student stu1("Jeni Watt", "B004568656", "BSc Computing", 1);
-	Student stu2("abba", "B00898989", "dancing", 1);
-	Student stu3("eltnum 2", "B00438247", "BSc gun", 1);
+	Student stu2("Eoin Porter", "B00898989", "BSc Computer Science", 1);
+	Student stu3("Ryan Grant", "B00438247", "BSc FGC", 1);
 
-	vector<Student> boyos, lads;
-	boyos.push_back(stu1);
-	boyos.push_back(stu2);
-	boyos.push_back(stu3);
+	vector<Student> students, fromFile;
+	students.push_back(stu1);
+	students.push_back(stu2);
+	students.push_back(stu3);
 
-	WriteStudentDetails(boyos);
+	WriteStudentDetails(students);
 
-	lads = ReadStudentDetails("studentDetails.txt");
+	fromFile = ReadStudentDetails("studentData.txt");
 
-	for (int i = 0; i < lads.size(); i++) {
-		cout << lads.at(i).GetName() << "\t" << lads.at(i).GetRegistrationID() << "\t" << lads.at(i).GetYearofStudy() << endl;
+	for (int i = 0; i < fromFile.size(); i++) {
+		cout << fromFile.at(i).GetName() << "\t" << fromFile.at(i).GetRegistrationID() << "\t" << quoted(fromFile.at(i).GetCourse()) << "\t" << fromFile.at(i).GetYearofStudy() << endl;
 	}
 	//Create a lecturer object
 	//Lecturer him{ "David Marsh", "dangermouse@io.com", "11009555", "Dangerology" };
